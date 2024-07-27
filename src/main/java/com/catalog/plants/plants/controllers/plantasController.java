@@ -83,7 +83,7 @@ public class plantasController {
         
     }
 
-    @DeleteMapping("/plantas/{id}")
+   /*  @DeleteMapping("/plantas/{id}")
     public ResponseEntity<Map<String, Boolean>> eliminarPlanta(@PathVariable Long id) {
         Plantas planta = repository.findById(id).orElseThrow();
         repository.delete(planta);
@@ -92,5 +92,7 @@ public class plantasController {
         return ResponseEntity.ok(response);
 
     }
+
+    */
 
 }
