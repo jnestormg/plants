@@ -14,20 +14,6 @@ public class PlantsApplication {
 		SpringApplication.run(PlantsApplication.class, args);
 	}
 
-	@Configuration
-	public static class MyConfiguration{
 
-		@Bean
-		public WebMvcConfigurer configurer(){
-			return new WebMvcConfigurer() {
-
-				public void addCorsMapping(CorsRegistry registry){
-					registry.addMapping("/**")
-					.allowedMethods("HEAD", "GET", "PUT", "DELETE", "POST", "PATCH");
-				}
-			};
-		}
-
-	}
 
 }
