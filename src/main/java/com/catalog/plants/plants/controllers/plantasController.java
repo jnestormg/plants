@@ -76,7 +76,7 @@ public class plantasController {
      * }
      */
 
-    @DeleteMapping
+    @DeleteMapping("/plantas/{id}")
     public void borrarPlanta(@PathVariable Long id) {
         Plantas plant = repository.findById(id).orElseThrow();
         repository.delete(plant);
