@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.catalog.plants.plants.entities.Plantas;
 import com.catalog.plants.plants.repositories.plantasReposority;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -37,13 +36,6 @@ public class plantasController {
         return repository.save(planta);
     }
 
-    /*
-     * @GetMapping("/plantas/{id}")
-     * public ResponseEntity<Plantas> listarPlantaPorId(@PathVariable Long id) {
-     * Plantas planta=repository.findById(id).orElseThrow();
-     * return ResponseEntity.ok(planta);
-     * }
-     */
 
     @GetMapping("/plantas/{id}")
     public Plantas buscarPorId(@PathVariable Long id) {
@@ -59,22 +51,6 @@ public class plantasController {
         return repository.save(plant);
     }
 
-    /*
-     * 
-     * @PutMapping("/plantas/{id}")
-     * public ResponseEntity<Plantas> actualizarPlanta(@PathVariable Long
-     * id, @RequestBody Plantas plantaRequest){
-     * Plantas planta=repository.findById(id).orElseThrow();
-     * planta.setNombre(plantaRequest.getNombre());
-     * planta.setFoto(plantaRequest.getFoto());
-     * planta.setDescripcion(plantaRequest.getDescripcion());
-     * 
-     * Plantas plantaActualizada=repository.save(planta);
-     * 
-     * return ResponseEntity.ok(plantaActualizada);
-     * 
-     * }
-     */
 
     @DeleteMapping("/plantas/{id}")
     public void borrarPlanta(@PathVariable Long id) {
@@ -83,16 +59,6 @@ public class plantasController {
         
     }
 
-   /*  @DeleteMapping("/plantas/{id}")
-    public ResponseEntity<Map<String, Boolean>> eliminarPlanta(@PathVariable Long id) {
-        Plantas planta = repository.findById(id).orElseThrow();
-        repository.delete(planta);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("delete", Boolean.TRUE);
-        return ResponseEntity.ok(response);
 
-    }
-
-    */
 
 }
