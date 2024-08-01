@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.catalog.plants.plants.entities.Plantas;
 import com.catalog.plants.plants.repositories.plantasReposority;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/v1")
@@ -52,6 +54,7 @@ public class plantasController {
     }
 
 
+
     @DeleteMapping("/plantas/{id}")
     public void borrarPlanta(@PathVariable Long id) {
         Plantas plant = repository.findById(id).orElseThrow();
@@ -59,6 +62,20 @@ public class plantasController {
         
     }
 
+    @GetMapping("/plantas/nombre/{nombre}")  
+    public List<Plantas> buscarPorNombre(@PathVariable String nombre){
+        return repository.findByNombreContaining(nombre);
+    }
 
+    @GetMapping("/planta")
+    public Object buscarPorNpmbre(@RequestParam String nombre){
+        List<Plantas> listaPlantas= repository.findByNombre(nombre);
+        return listaPlantas;
+    }
+
+    @GetMapping("/planta/name/{nombre}")
+    List<Plantas> buscarPorNombreLike(@PathVariable String nombre){
+        return repository.buscarPorNombreLikeAdvance(nombre);
+    }
 
 }
