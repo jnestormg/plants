@@ -31,7 +31,7 @@ public class plantasController {
 
     @GetMapping("/plantas")
     public List<Plantas> mostrarPlantas() {
-        return repository.findAll(Sort.by(Sort.Direction.DESC));
+        return repository.findAll();
     }
 
     @PostMapping("/plantas")
