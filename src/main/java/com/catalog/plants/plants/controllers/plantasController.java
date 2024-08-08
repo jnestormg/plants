@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,7 +31,7 @@ public class plantasController {
 
     @GetMapping("/plantas")
     public List<Plantas> mostrarPlantas() {
-        return repository.findAll();
+        return repository.findAll(Sort.by(Sort.Direction.DESC));
     }
 
     @PostMapping("/plantas")
