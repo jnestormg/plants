@@ -9,8 +9,13 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class DotEnvConfig {
 
     @Bean
-    public Dotenv dotenv(){
-        return Dotenv.configure().load();
+    public Dotenv dotenv() {
+        try {
+            return Dotenv.load();
+        } catch (Exception e) {
+            // Maneja la excepción aquí, o utiliza valores por defecto
+            return Dotenv.configure().ignoreIfMissing().load();
+        }
     }
 
 }
