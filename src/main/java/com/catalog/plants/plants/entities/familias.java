@@ -16,6 +16,14 @@ public class familias {
 
     private String familia;
 
+    
+    public familias() {
+    }
+
+    public familias(String familia) {
+        this.familia = familia;
+    }
+
     public Long getId() {
         return id;
     }

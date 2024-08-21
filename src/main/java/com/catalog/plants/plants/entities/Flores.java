@@ -16,6 +16,14 @@ public class Flores {
 
     private String color;
 
+    public Flores(){
+        
+    }
+
+    public Flores(String color) {
+        this.color = color;
+    }
+
     public Long getId() {
         return id;
     }

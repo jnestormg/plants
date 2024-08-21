@@ -16,6 +16,14 @@ public class RequerimientosLuz {
 
     private String requerimiento;
 
+    
+    public RequerimientosLuz() {
+    }
+
+    public RequerimientosLuz(String requerimiento) {
+        this.requerimiento = requerimiento;
+    }
+
     public Long getId() {
         return id;
     }

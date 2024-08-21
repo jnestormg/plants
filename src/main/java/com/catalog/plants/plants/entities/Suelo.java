@@ -16,6 +16,14 @@ public class Suelo {
 
     private String tipo_suelo;
 
+    
+    public Suelo() {
+    }
+
+    public Suelo(String tipo_suelo) {
+        this.tipo_suelo = tipo_suelo;
+    }
+
     public Long getId() {
         return id;
     }

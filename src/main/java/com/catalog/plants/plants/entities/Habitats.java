@@ -16,6 +16,15 @@ public class Habitats {
 
     private String nombre_habitat;
 
+    
+
+    public Habitats() {
+    }
+
+    public Habitats(String nombre_habitat) {
+        this.nombre_habitat = nombre_habitat;
+    }
+
     public Long getId() {
         return id;
     }

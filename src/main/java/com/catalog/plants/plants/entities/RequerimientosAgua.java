@@ -16,6 +16,14 @@ public class RequerimientosAgua {
 
     private String requerimiento;
 
+    
+    public RequerimientosAgua() {
+    }
+
+    public RequerimientosAgua(String requerimiento) {
+        this.requerimiento = requerimiento;
+    }
+
     public Long getId() {
         return id;
     }
