@@ -13,6 +13,7 @@ import com.catalog.plants.plants.entities.Flores;
 import com.catalog.plants.plants.repositories.floresRepository;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 
 @RestController
 public class FloresController {
@@ -29,24 +30,42 @@ public class FloresController {
         agregarColores();
     }
 
-   
+    @Transactional
     @PostMapping("/flores")
     public List<Flores> agregarColores(){
-        Flores blanca= new Flores("Blanco");
-        Flores roja= new Flores("Rojo");
-        Flores rosa= new Flores("Rosa");
-        Flores amarilla = new Flores("Amarillo");
-        Flores naranja= new Flores("Naranja");
-        Flores morado= new Flores("Morado");
-        Flores violeta= new Flores("Violeta");
-        Flores verde = new Flores("Verde");
-        Flores negro= new Flores("Negro");
-        Flores multicolor= new Flores("Multicolor");
+     
+
+        try {
+            boolean flor=repository.existsById(1l);
     
-        cFlores =Arrays.asList(blanca,roja, rosa, amarilla,
-         naranja, morado, violeta, verde, negro, multicolor );
+            if (flor) {
+                return null;
+            }
+            else{
+
+                Flores blanca= new Flores(1l,"Blanco");
+                Flores roja= new Flores(2l,"Rojo");
+                Flores rosa= new Flores(3l,"Rosa");
+                Flores amarilla = new Flores(4l,"Amarillo");
+                Flores naranja= new Flores(4l,"Naranja");
+                Flores morado= new Flores(5l,"Morado");
+                Flores violeta= new Flores(6l,"Violeta");
+                Flores verde = new Flores(7l,"Verde");
+                Flores negro= new Flores(8l,"Negro");
+                Flores multicolor= new Flores(9l,"Multicolor");
+
+                cFlores =Arrays.asList(blanca,roja, rosa, amarilla,
+                naranja, morado, violeta, verde, negro, multicolor );
+
+                return repository.saveAll(cFlores);
+
+            }
+        } catch (Exception e) {
+        }
+       
+        
+    return null;
          
-        return repository.saveAll(cFlores);
     }
 
 

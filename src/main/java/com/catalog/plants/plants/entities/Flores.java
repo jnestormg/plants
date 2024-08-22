@@ -20,7 +20,8 @@ public class Flores {
         
     }
 
-    public Flores(String color) {
+    public Flores(Long id, String color) {
+        this.id= id;
         this.color = color;
     }
 

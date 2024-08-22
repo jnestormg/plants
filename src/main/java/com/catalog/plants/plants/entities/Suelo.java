@@ -20,7 +20,8 @@ public class Suelo {
     public Suelo() {
     }
 
-    public Suelo(String tipo_suelo) {
+    public Suelo(Long id, String tipo_suelo) {
+        this.id=id;
         this.tipo_suelo = tipo_suelo;
     }
 

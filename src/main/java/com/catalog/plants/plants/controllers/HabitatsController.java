@@ -3,6 +3,8 @@ package com.catalog.plants.plants.controllers;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,40 +14,51 @@ import jakarta.annotation.PostConstruct;
 
 @RestController
 public class HabitatsController {
-    
+
     @Autowired
-    private habitatsRepository repository; 
+    private habitatsRepository repository;
 
     private static List<Habitats> tHabitats;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         agregarHabitats();
     }
 
     @PostMapping("/habitats")
-    public List<Habitats> agregarHabitats(){
+    public List<Habitats> agregarHabitats() {
 
-        Habitats tropical= new Habitats("Tropical");
-        Habitats desierto= new Habitats("Desierto");
-        Habitats pradera= new Habitats("Pradera");
-        Habitats humedal= new Habitats("Humedal");
-        Habitats montana= new Habitats("Montaña");
-        Habitats sabana= new Habitats("Sabana");
-        Habitats manglar= new Habitats("Manglar");
-        Habitats oceano= new Habitats("Océano");
-        Habitats Mar= new Habitats("Mar");
-        Habitats rio= new Habitats("Río");
-        Habitats lago= new Habitats("Lago");
+        boolean habitat = repository.existsById(1l);
 
-        tHabitats=Arrays.asList(tropical, desierto, pradera, humedal, montana,
-        sabana, manglar, oceano, Mar, rio, lago);
+        try {
+            if (habitat) {
+                return null;
+            } else {
+                Habitats tropical = new Habitats(1l,"Tropical");
+                Habitats desierto = new Habitats(2l,"Desierto");
+                Habitats pradera = new Habitats(3l,"Pradera");
+                Habitats humedal = new Habitats(4l,"Humedal");
+                Habitats montana = new Habitats(5l,"Montaña");
+                Habitats sabana = new Habitats(6l,"Sabana");
+                Habitats manglar = new Habitats(7l,"Manglar");
+                Habitats oceano = new Habitats(8l,"Océano");
+                Habitats Mar = new Habitats(9l,"Mar");
+                Habitats rio = new Habitats(10l,"Río");
+                Habitats lago = new Habitats(11l, "Lago");
 
-        return repository.saveAll(tHabitats);
+                tHabitats = Arrays.asList(tropical, desierto, pradera, humedal, montana,
+                        sabana, manglar, oceano, Mar, rio, lago);
+
+                return repository.saveAll(tHabitats);
+            }
+        } catch (Exception e) {
+        }
+        return null;
+
     }
 
     @GetMapping("/habitats")
-    public List<Habitats> mostrarHabitats(){
+    public List<Habitats> mostrarHabitats() {
         return repository.findAll();
     }
 }

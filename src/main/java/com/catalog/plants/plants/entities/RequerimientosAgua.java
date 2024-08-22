@@ -20,7 +20,8 @@ public class RequerimientosAgua {
     public RequerimientosAgua() {
     }
 
-    public RequerimientosAgua(String requerimiento) {
+    public RequerimientosAgua(Long id, String requerimiento) {
+        this.id=id;
         this.requerimiento = requerimiento;
     }
 

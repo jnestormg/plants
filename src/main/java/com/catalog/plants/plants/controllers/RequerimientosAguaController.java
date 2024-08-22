@@ -29,13 +29,26 @@ public class RequerimientosAguaController {
     @PostMapping("/requerimientos-agua")
     public List<RequerimientosAgua> agregarRequerimientosAguas(){
 
-        RequerimientosAgua bajo= new RequerimientosAgua("Bajo");
-        RequerimientosAgua medio = new RequerimientosAgua("Medio");
-        RequerimientosAgua alto =  new RequerimientosAgua("Alto");
+        boolean requerimentoIsExists= repository.existsById(1l);
 
-        tRequerimientosAgua=Arrays.asList(bajo, medio, alto);
+        try {
+            if (requerimentoIsExists) {
+                return null;
+            }
+            else{
+                RequerimientosAgua bajo= new RequerimientosAgua(1l,"Bajo");
+                RequerimientosAgua medio = new RequerimientosAgua(2l,"Medio");
+                RequerimientosAgua alto =  new RequerimientosAgua(3l,"Alto");
+        
+                tRequerimientosAgua=Arrays.asList(bajo, medio, alto);
+        
+                return repository.saveAll(tRequerimientosAgua);
+            }
+        } catch (Exception e) {
 
-        return repository.saveAll(tRequerimientosAgua);
+        }
+
+       return null;
     }
 
     @GetMapping("/requerimientos-agua")

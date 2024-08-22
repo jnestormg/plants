@@ -29,16 +29,31 @@ public class sueloController {
 
     @PostMapping("/suelo")
     public List<Suelo> agregarSuelos(){
-        Suelo arenoso= new Suelo("Arenoso");
-        Suelo arcilloso= new Suelo("Arenoso");
-        Suelo limoso= new Suelo("Limoso");
-        Suelo franco= new Suelo("Franco");
-        Suelo calcareo = new Suelo("Calcáreo");
-        Suelo turboso= new Suelo("Turboso");
+        
+        boolean sueloIsExists= repository.existsById(1l);
 
-        tSuelos= Arrays.asList(arenoso, arcilloso, limoso, franco, calcareo, turboso);
+        try {
+            if (sueloIsExists) {
+                return null;
+            }
+            else{
+                Suelo arenoso= new Suelo(1l,"Arenoso");
+                Suelo arcilloso= new Suelo(2l,"Arenoso");
+                Suelo limoso= new Suelo(3l,"Limoso");
+                Suelo franco= new Suelo(4l,"Franco");
+                Suelo calcareo = new Suelo(5l,"Calcáreo");
+                Suelo turboso= new Suelo(6l,"Turboso");
+        
+                tSuelos= Arrays.asList(arenoso, arcilloso, limoso, franco, calcareo, turboso);
+        
+                return repository.saveAll(tSuelos);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
 
-        return repository.saveAll(tSuelos);
+        return null;
+     
     }
 
     @GetMapping("/suelo")

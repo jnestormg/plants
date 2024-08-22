@@ -20,7 +20,8 @@ public class Habitats {
     public Habitats() {
     }
 
-    public Habitats(String nombre_habitat) {
+    public Habitats(Long id, String nombre_habitat) {
+        this.id= id;
         this.nombre_habitat = nombre_habitat;
     }
 

@@ -22,7 +22,8 @@ public class familias {
     public familias() {
     }
 
-    public familias(String familia, String descripcion) {
+    public familias(Long id,String familia, String descripcion) {
+        this.id=id;
         this.familia = familia;
         this.descripcion= descripcion;
     }
