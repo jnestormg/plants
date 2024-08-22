@@ -15,8 +15,7 @@ public class Habitats {
     private Long id;
 
     private String nombre_habitat;
-
-    
+  
 
     public Habitats() {
     }

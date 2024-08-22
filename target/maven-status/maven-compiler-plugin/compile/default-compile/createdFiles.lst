@@ -1,11 +1,11 @@
 com\catalog\plants\plants\repositories\requerimientosLuzRepository.class
+com\catalog\plants\plants\controllers\RequerimientosLuzController.class
 com\catalog\plants\plants\repositories\familiaRepository.class
 com\catalog\plants\plants\controllers\RequerimientosAguaController.class
 com\catalog\plants\plants\repositories\sueloRepository.class
 com\catalog\plants\plants\repositories\floresRepository.class
 com\catalog\plants\plants\entities\Flores.class
 com\catalog\plants\plants\entities\Suelo.class
-com\catalog\plants\plants\controllers\RequerimientosLuz.class
 com\catalog\plants\plants\controllers\sueloController.class
 com\catalog\plants\plants\CorsConfiguration.class
 com\catalog\plants\plants\entities\familias.class

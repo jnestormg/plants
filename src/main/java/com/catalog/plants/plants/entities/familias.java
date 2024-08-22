@@ -16,12 +16,15 @@ public class familias {
 
     private String familia;
 
+    private String descripcion;
+
     
     public familias() {
     }
 
-    public familias(String familia) {
+    public familias(String familia, String descripcion) {
         this.familia = familia;
+        this.descripcion= descripcion;
     }
 
     public Long getId() {
@@ -40,6 +43,15 @@ public class familias {
         this.familia = familia;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    
     
 
 }
