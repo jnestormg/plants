@@ -16,7 +16,8 @@ List<Plantas> findByNombre(String nombre);
 
 List<Plantas> findByNombreContaining(String nombre);
 
-@Query( "select p from Plantas p where p.nombre like %:nombre%")
+@Query("SELECT p FROM Plantas p WHERE p.nombre ILIKE %:nombre%")
 List<Plantas> buscarPorNombreLikeAdvance(@Param("nombre") String nombre);
+
 
 }
