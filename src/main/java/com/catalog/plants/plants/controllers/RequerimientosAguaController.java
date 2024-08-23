@@ -4,14 +4,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.catalog.plants.plants.entities.RequerimientosAgua;
 import com.catalog.plants.plants.repositories.requerimientosAguaRepository;
 
-import jakarta.annotation.PostConstruct;;
+import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;;
 
 @RestController
 public class RequerimientosAguaController {
@@ -26,14 +30,15 @@ public class RequerimientosAguaController {
         agregarRequerimientosAguas();
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/requerimientos-agua")
-    public List<RequerimientosAgua> agregarRequerimientosAguas(){
+    public void agregarRequerimientosAguas(){
 
-        boolean requerimentoIsExists= repository.existsById(1l);
 
         try {
+            boolean requerimentoIsExists= repository.existsById(1l);
+
             if (requerimentoIsExists) {
-                return null;
             }
             else{
                 RequerimientosAgua bajo= new RequerimientosAgua(1l,"Bajo");
@@ -42,17 +47,18 @@ public class RequerimientosAguaController {
         
                 tRequerimientosAgua=Arrays.asList(bajo, medio, alto);
         
-                return repository.saveAll(tRequerimientosAgua);
+                repository.saveAll(tRequerimientosAgua);
             }
         } catch (Exception e) {
-
+            System.out.println("Error: "+e);
         }
 
-       return null;
     }
 
     @GetMapping("/requerimientos-agua")
-    public List<RequerimientosAgua> mostrarRequerimientosAgua(){
-        return repository.findAll();
+    public ResponseEntity<List<RequerimientosAgua>> mostrarRequerimientosAgua(){
+        List<RequerimientosAgua> requerimientosAgua= repository.findAll();
+
+        return ResponseEntity.ok(requerimientosAgua);
     }
 }

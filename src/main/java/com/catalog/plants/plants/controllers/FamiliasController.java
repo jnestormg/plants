@@ -4,8 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.catalog.plants.plants.entities.familias;
@@ -26,15 +29,14 @@ public class FamiliasController {
         agregarFamilias();
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/familias")
-    public List<familias> agregarFamilias(){
-
-        boolean familiaIsExists=repository.existsById(1l);
+    public void agregarFamilias(){
 
         try {
-            
+            boolean familiaIsExists=repository.existsById(1l);
+
             if (familiaIsExists) {
-                return null;
             }
             else{
                 familias asteracea= new familias(1l,"Asteracea", "margaritas, girasoles y critantemos");
@@ -51,17 +53,19 @@ public class FamiliasController {
                 lFamilias= Arrays.asList(asteracea, Rosaceae, Solanaceae, Liliaceae,
                 Orchidaceae, Fabaceae, Poaceae, Cactaceae, Rutaceae, Brassicaceae);
         
-                return repository.saveAll(lFamilias);
+                repository.saveAll(lFamilias);
             }
 
         } catch (Exception e) {
+            System.out.println("Error: "+e);
         }
 
-       return null;
     }
 
     @GetMapping("/familias")
-    public List<familias> mostrarFamilias(){
-        return repository.findAll();
+    public ResponseEntity<List<familias>> mostrarFamilias(){
+        List<familias> families= repository.findAll();
+
+        return ResponseEntity.ok(families);
     }
 }

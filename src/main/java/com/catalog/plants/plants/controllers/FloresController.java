@@ -5,8 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.catalog.plants.plants.entities.Flores;
@@ -31,15 +34,16 @@ public class FloresController {
     }
 
     @Transactional
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/flores")
-    public List<Flores> agregarColores(){
+    public void agregarColores(){
      
 
         try {
             boolean flor=repository.existsById(1l);
     
             if (flor) {
-                return null;
+              
             }
             else{
 
@@ -57,21 +61,21 @@ public class FloresController {
                 cFlores =Arrays.asList(blanca,roja, rosa, amarilla,
                 naranja, morado, violeta, verde, negro, multicolor );
 
-                return repository.saveAll(cFlores);
+                repository.saveAll(cFlores);
 
             }
         } catch (Exception e) {
+            System.out.println("Error: "+e);
         }
-       
         
-    return null;
-         
     }
 
 
     @GetMapping("/flores")
-    public List<Flores> mostrarFlores(){
-        return repository.findAll();
+    public ResponseEntity<List<Flores>> mostrarFlores(){
+        List<Flores> flores= repository.findAll();
+
+        return ResponseEntity.ok(flores);
     }
 
 }

@@ -4,16 +4,20 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.catalog.plants.plants.entities.RequerimientosLuz;
 import com.catalog.plants.plants.repositories.requerimientosLuzRepository;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @RestController
 public class RequerimientosLuzController {
@@ -28,14 +32,15 @@ public class RequerimientosLuzController {
         agregaRequerimientosLuz();
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/requerimiento-luz")
-    public List<RequerimientosLuz> agregaRequerimientosLuz() {
+    public void agregaRequerimientosLuz() {
 
-        boolean requerimentoIsExists = repository.existsById(1l);
 
         try {
+            boolean requerimentoIsExists = repository.existsById(1l);
+
             if (requerimentoIsExists) {
-                return null;
             } else {
 
                 RequerimientosLuz sol = new RequerimientosLuz(1l,"Sol total");
@@ -43,18 +48,20 @@ public class RequerimientosLuzController {
 
                 tRequerimientosLuz = Arrays.asList(sol, sombra);
 
-                return repository.saveAll(tRequerimientosLuz);
+                repository.saveAll(tRequerimientosLuz);
             }
         } catch (Exception e) {
-
+            System.out.println("Error: "+e);
         }
 
-        return null;
     }
 
     @GetMapping("/requerimiento-luz")
-    public List<com.catalog.plants.plants.entities.RequerimientosLuz> mostraRequerimientosLuz() {
-        return repository.findAll();
+    public ResponseEntity<List<com.catalog.plants.plants.entities.RequerimientosLuz>> mostraRequerimientosLuz() {
+        List<RequerimientosLuz> requerimientosLuz= repository.findAll();
+
+        return ResponseEntity.ok(requerimientosLuz);
+
     }
 
 }

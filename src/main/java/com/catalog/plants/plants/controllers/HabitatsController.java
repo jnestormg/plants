@@ -7,10 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.catalog.plants.plants.entities.Habitats;
 import com.catalog.plants.plants.repositories.habitatsRepository;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 
 @RestController
 public class HabitatsController {
@@ -25,14 +27,16 @@ public class HabitatsController {
         agregarHabitats();
     }
 
-    @PostMapping("/habitats")
-    public List<Habitats> agregarHabitats() {
 
-        boolean habitat = repository.existsById(1l);
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/habitats")
+    public void agregarHabitats() {
+
 
         try {
+            boolean habitat = repository.existsById(1l);
+
             if (habitat) {
-                return null;
             } else {
                 Habitats tropical = new Habitats(1l,"Tropical");
                 Habitats desierto = new Habitats(2l,"Desierto");
@@ -49,16 +53,19 @@ public class HabitatsController {
                 tHabitats = Arrays.asList(tropical, desierto, pradera, humedal, montana,
                         sabana, manglar, oceano, Mar, rio, lago);
 
-                return repository.saveAll(tHabitats);
+               repository.saveAll(tHabitats);
             }
         } catch (Exception e) {
+            System.out.println("Error: "+e);
         }
-        return null;
 
+        
     }
 
     @GetMapping("/habitats")
-    public List<Habitats> mostrarHabitats() {
-        return repository.findAll();
+    public ResponseEntity<List<Habitats>> mostrarHabitats() {
+        List<Habitats> habitats= repository.findAll();
+
+        return ResponseEntity.ok(habitats);
     }
 }
