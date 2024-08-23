@@ -29,9 +29,7 @@ public class plantasController {
     @Autowired
     private plantasReposority repository;
 
-    @Autowired
-    private habitatsRepository habitatsRepository;
-
+  
     @GetMapping("/plantas")
     public ResponseEntity<List<Plantas>> mostrarPlantas() {
         // return repository.findAll(Sort.by(Sort.Direction.DESC));
@@ -46,26 +44,52 @@ public class plantasController {
     }
 
     @GetMapping("/plantas/{id}")
-    public Plantas buscarPorId(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow();
+    public ResponseEntity<Plantas> buscarPorId(@PathVariable Long id) {
+
+        Plantas planta= new Plantas();
+        if(repository.existsById(id)){
+            planta= repository.findById(id).orElseThrow(()-> new RuntimeException("No se encontró el id: "+id));
+    
+            return ResponseEntity.ok(planta);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+
+        
     }
 
     @PutMapping("/plantas/{id}")
-    public Plantas actualizarPlantas(@RequestBody Plantas planta, @PathVariable Long id) {
-        Plantas plant = repository.findById(id).orElseThrow();
+    public ResponseEntity<Plantas> actualizarPlantas(@RequestBody Plantas planta, @PathVariable Long id) {
+        
+        Plantas plant =new Plantas();
+
+        if(!repository.existsById(id)){
+            return ResponseEntity.notFound().build();
+
+        }else{
+        }
+        plant = repository.findById(id).orElseThrow(()->new RuntimeException("No encontró el id"));
 
         plant.setNombre(planta.getNombre());
         plant.setDescripcion(planta.getDescripcion());
         plant.setFoto(planta.getFoto());
         plant.setAltura(planta.getAltura());
         plant.setToxicidad(planta.getToxicidad());
-        return repository.save(plant);
+
+        return ResponseEntity.ok(repository.save(plant));
     }
 
     @DeleteMapping("/plantas/{id}")
-    public void borrarPlanta(@PathVariable Long id) {
+    public ResponseEntity<Void> borrarPlanta(@PathVariable Long id) {
+
+        if (!repository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
         Plantas plant = repository.findById(id).orElseThrow();
         repository.delete(plant);
+        return ResponseEntity.noContent().build();
 
     }
 
