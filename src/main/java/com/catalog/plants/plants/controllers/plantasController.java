@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +22,6 @@ import com.catalog.plants.plants.repositories.habitatsRepository;
 import com.catalog.plants.plants.repositories.plantasReposority;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @RestController
 @RequestMapping("/api/v1")
 public class plantasController {
@@ -32,22 +33,17 @@ public class plantasController {
     private habitatsRepository habitatsRepository;
 
     @GetMapping("/plantas")
-    public List<Plantas> mostrarPlantas() {
-        //return repository.findAll(Sort.by(Sort.Direction.DESC));
-        return repository.findAll();
+    public ResponseEntity<List<Plantas>> mostrarPlantas() {
+        // return repository.findAll(Sort.by(Sort.Direction.DESC));
+        List<Plantas> plantas= repository.findAll();
+
+        return ResponseEntity.ok(plantas);
     }
 
     @PostMapping("/plantas")
-    public Plantas guardarPlanta(@RequestBody Plantas planta) {
-/* 
-        System.out.println("objeto planta"+ planta);
-       Habitats habitat= habitatsRepository.findById(planta.getId_habitat().getId()).orElseThrow(()->new ResourceAccessException("no encontrado"));
-       Plantas plant= new Plantas();
-       plant.setId_habitat(habitat);*/
-       
-        return repository.save(planta);
+    public ResponseEntity<Plantas> guardarPlanta(@RequestBody Plantas planta) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(planta));
     }
-
 
     @GetMapping("/plantas/{id}")
     public Plantas buscarPorId(@PathVariable Long id) {
@@ -57,7 +53,7 @@ public class plantasController {
     @PutMapping("/plantas/{id}")
     public Plantas actualizarPlantas(@RequestBody Plantas planta, @PathVariable Long id) {
         Plantas plant = repository.findById(id).orElseThrow();
-   
+
         plant.setNombre(planta.getNombre());
         plant.setDescripcion(planta.getDescripcion());
         plant.setFoto(planta.getFoto());
@@ -66,28 +62,26 @@ public class plantasController {
         return repository.save(plant);
     }
 
-
-
     @DeleteMapping("/plantas/{id}")
     public void borrarPlanta(@PathVariable Long id) {
         Plantas plant = repository.findById(id).orElseThrow();
         repository.delete(plant);
-        
+
     }
 
-    @GetMapping("/plantas/nombre/{nombre}")  
-    public List<Plantas> buscarPorNombre(@PathVariable String nombre){
+    @GetMapping("/plantas/nombre/{nombre}")
+    public List<Plantas> buscarPorNombre(@PathVariable String nombre) {
         return repository.findByNombreContaining(nombre);
     }
 
     @GetMapping("/planta")
-    public Object buscarPorNpmbre(@RequestParam String nombre){
-        List<Plantas> listaPlantas= repository.findByNombre(nombre);
+    public Object buscarPorNpmbre(@RequestParam String nombre) {
+        List<Plantas> listaPlantas = repository.findByNombre(nombre);
         return listaPlantas;
     }
 
     @GetMapping("/planta/name/{nombre}")
-    List<Plantas> buscarPorNombreLike(@PathVariable String nombre){
+    List<Plantas> buscarPorNombreLike(@PathVariable String nombre) {
         return repository.buscarPorNombreLikeAdvance(nombre);
     }
 
