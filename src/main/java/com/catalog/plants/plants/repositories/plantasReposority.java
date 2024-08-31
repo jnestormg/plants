@@ -19,5 +19,8 @@ List<Plantas> findByNombreContaining(String nombre);
 @Query("SELECT p FROM Plantas p WHERE p.nombre ILIKE %:nombre%")
 List<Plantas> buscarPorNombreLikeAdvance(@Param("nombre") String nombre);
 
+@Query("SELECT p FROM Plantas p JOIN p.id_flor f WHERE f.color = :color")
+List<Plantas> buscarPorColor(@Param("color") String color);
+
 
 }

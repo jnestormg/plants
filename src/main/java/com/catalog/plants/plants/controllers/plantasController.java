@@ -89,6 +89,7 @@ public class plantasController {
 
         Plantas plant = repository.findById(id).orElseThrow();
         repository.delete(plant);
+        
         return ResponseEntity.noContent().build();
 
     }
@@ -105,8 +106,14 @@ public class plantasController {
     }
 
     @GetMapping("/planta/name/{nombre}")
-    List<Plantas> buscarPorNombreLike(@PathVariable String nombre) {
+    public List<Plantas> buscarPorNombreLike(@PathVariable String nombre) {
         return repository.buscarPorNombreLikeAdvance(nombre);
     }
+
+    @GetMapping("/plantas/color/{color}")
+    public List<Plantas> buscarPorColor(@PathVariable String color){
+        return repository.buscarPorColor(color);
+    }
+
 
 }
