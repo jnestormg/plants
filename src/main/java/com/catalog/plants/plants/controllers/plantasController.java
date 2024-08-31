@@ -54,9 +54,7 @@ public class plantasController {
         }
         else{
             return ResponseEntity.notFound().build();
-        }
-
-        
+        }       
     }
 
     @PutMapping("/plantas/{id}")
