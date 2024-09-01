@@ -22,5 +22,8 @@ List<Plantas> buscarPorNombreLikeAdvance(@Param("nombre") String nombre);
 @Query("SELECT p FROM Plantas p JOIN p.id_flor f WHERE f.color = :color")
 List<Plantas> buscarPorColor(@Param("color") String color);
 
+@Query("SELECT p FROM Plantas p JOIN p.id_requerimiento_luz l WHERE l.requerimiento = :luz")
+List<Plantas> buscarPorRequerimientoLuz(@Param("luz")String luz);
+
 
 }

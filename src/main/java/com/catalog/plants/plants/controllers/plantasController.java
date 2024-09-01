@@ -113,5 +113,9 @@ public class plantasController {
         return repository.buscarPorColor(color);
     }
 
+    @GetMapping("/plantas/luz/{luz}")
+    public List<Plantas> buscarPorRequerimentoLuz(@PathVariable String luz){
+        return repository.buscarPorRequerimientoLuz(luz);
+    }
 
 }
